@@ -77,6 +77,9 @@ namespace ft
 			_alloc.construct(_end, node_type(value_type()));
 			_end->color = BLACK_SET;
 			_root = _end;
+			_root->left = _end;
+			_root->right = _end;
+			_root->parent = _end;
 		}
 
 		/*
@@ -843,11 +846,15 @@ namespace ft
 		{
 			pointer w;
 			
+			if (x == _end)
+				return ;
 			while (x != _root && x->color == BLACK_SET)
 			{
 				if (x == x->parent->left)
 				{
 					w = x->parent->right;
+					if (w == _end)
+						return ;
 					if (w->color == RED_SET)
 					{
 						w->color = BLACK_SET;
@@ -884,6 +891,8 @@ namespace ft
 				else
 				{
 					w = x->parent->left;
+					if (w == _end)
+						return ;
 					if (w->color == RED_SET)
 					{
 						w->color = BLACK_SET;

@@ -130,7 +130,10 @@ std::string map_large_erase_rnd2()
 		v.insert(typename T::value_type(rnd, i));
 	}
 	for (std::list<float>::iterator it = lst.begin(); it != lst.end(); it++)
+	{
 		v.erase(*it);
+	}
+		
 	std::string s = map_attributes<T>(v);
 	return (ft::Tester::Return(s));
 }

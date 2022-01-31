@@ -112,8 +112,9 @@ namespace ft
 		~vector( void )
 		{
 			clear();
-			if (capacity() != 0)
-				_alloc.deallocate(_start, capacity());
+			//if (capacity() != 0)
+			//_alloc.deallocate(_start, capacity());
+			_alloc.deallocate(_start, 1);
 		}
 
 		/*

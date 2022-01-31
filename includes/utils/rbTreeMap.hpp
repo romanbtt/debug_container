@@ -43,7 +43,7 @@ namespace ft
 		color_node_map		color;
 
 		rbt_node_map( value_type content ) :
-		content(content), parent(0x0), left(0x0), right(0x0), color(RED_MAP)
+			content(content)
 		{
 			return ;
 		}
@@ -93,6 +93,9 @@ namespace ft
 			_alloc.construct(_end, node_type(value_type()));
 			_end->color = BLACK_MAP;
 			_root = _end;
+			_root->left = _end;
+			_root->right = _end;
+			_root->parent = _end;
 		}
 
 		/*
@@ -730,15 +733,15 @@ namespace ft
 
 		pointer	_minimum( pointer node )
 		{
-			while (node->left && node->left != _end && node != _end)
+			while (node->left != _end && node != _end)
 				node = node->left;
 			return node;
 		}
 
 		pointer	_minimum( pointer node ) const
 		{
-			node->print();
-			while (node->left && node->left != _end)
+			//node->print();
+			while (node->left != _end)
 				node = node->left;
 			return node;
 		}
@@ -880,12 +883,15 @@ namespace ft
 		void	_deleteFixUp( pointer x )
 		{
 			pointer w;
-			
+			if (x == _end)
+				return ;
 			while (x != _root && x->color == BLACK_MAP)
 			{
 				if (x == x->parent->left)
 				{
 					w = x->parent->right;
+					if (w == _end)
+						return ;
 					if (w->color == RED_MAP)
 					{
 						w->color = BLACK_MAP;
@@ -893,12 +899,12 @@ namespace ft
 						_left_rotate(x->parent);
 						w = x->parent->right;
 					}
-					if (((!w->left) || w->left->color == BLACK_MAP) && ((!(w->right)) || w->right->color == BLACK_MAP))
+					if (w->left->color == BLACK_MAP && w->right->color == BLACK_MAP)
 					{
 						w->color = RED_MAP;
 						x = x->parent;
 					}
-					else if (!(w->right) || w->right->color == BLACK_MAP)
+					else if (w->right->color == BLACK_MAP)
 					{
 						w->left->color = BLACK_MAP;
 						w->color = RED_MAP;
@@ -922,6 +928,8 @@ namespace ft
 				else
 				{
 					w = x->parent->left;
+					if (w == _end)
+						return ;
 					if (w->color == RED_MAP)
 					{
 						w->color = BLACK_MAP;
@@ -929,13 +937,13 @@ namespace ft
 						_right_rotate(x->parent);
 						w = x->parent->left;
 					}
-					w->print();
-					if ((!(w->right) || w->right->color == BLACK_MAP) && (!(w->left) || (w->left->color == BLACK_MAP)))
+					//w->print();
+					if (w->right->color == BLACK_MAP && w->left->color == BLACK_MAP)
 					{
 						w->color = RED_MAP;
 						x = x->parent;
 					}
-					else if (!(w->left) || w->left->color == BLACK_MAP)
+					else if (w->left->color == BLACK_MAP)
 					{
 						w->right->color = BLACK_MAP;
 						w->color = RED_MAP;
@@ -981,6 +989,10 @@ namespace ft
 
 		void	_destroyNode( pointer node )
 		{
+			node->content = value_type();
+			node->left = NULL;
+			node->right = NULL;
+			node->parent = NULL;
 			_alloc.destroy(node);
 			_alloc.deallocate(node, 1);
 		}
