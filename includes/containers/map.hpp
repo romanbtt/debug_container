@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: romanbtt <marvin@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 16:45:48 by romanbtt          #+#    #+#             */
-/*   Updated: 2022/01/30 18:12:04 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/29 00:54:33 by romanbtt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,10 @@
 
 # include "../utils/less.hpp"
 # include "../utils/pair.hpp"
-# include "../utils/rbTreeMap.hpp"
 # include "../utils/equal.hpp"
 # include "../utils/lexicographicalCompare.hpp"
-
+# include "../utils/rbTreeMap.hpp"
 # include "../iterators/iteratorTraits.hpp"
-
 # include <memory>
 
 namespace ft

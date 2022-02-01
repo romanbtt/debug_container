@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rbTreeMap.hpp                                      :+:      :+:    :+:   */
+/*   rb_tree_map.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: romanbtt <marvin@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 19:37:19 by romanbtt          #+#    #+#             */
-/*   Updated: 2022/01/30 18:30:27 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/29 00:52:16 by romanbtt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RBTREE_H
 # define RBTREE_H
 
-#include <iostream>
 # include <memory>
 # include "less.hpp"
 # include "pair.hpp"
 # include "../iterators/rbTreeIterator.hpp"
-
-
-
 
 namespace ft
 {
@@ -35,26 +31,16 @@ namespace ft
 	struct rbt_node_map
 	{
 		typedef ft::pair<Key, T>	value_type;
-		
+
 		value_type			content;
 		rbt_node_map*		parent;
 		rbt_node_map*		left;
 		rbt_node_map*		right;
 		color_node_map		color;
 
-		rbt_node_map( value_type content ) :
-			content(content)
+		rbt_node_map( value_type content ) : content(content)
 		{
 			return ;
-		}
-		
-		void print()
-		{
-			std::cout << "CONTENT:" << content.second << std::endl << std::flush;
-			std::cout << "PARENT:" << parent << std::endl << std::flush;
-			std::cout << "LEFT:" << left << std::endl << std::flush;
-			std::cout << "RIGHT:" << right << std::endl << std::flush;
-			std::cout << "COLOR:" << color << std::endl << std::flush;
 		}
 	}; // struct rbt_node_map
 
@@ -95,7 +81,6 @@ namespace ft
 			_root = _end;
 			_root->left = _end;
 			_root->right = _end;
-			_root->parent = _end;
 		}
 
 		/*
@@ -303,6 +288,8 @@ namespace ft
 			if (it != end())
 				return ft::make_pair(it, false);
 			pointer node = _alloc.allocate(1);
+			node->left = _end;
+			node->right = _end;
 			_alloc.construct(node, node_type(val));
 			pointer node_inserted = _insertNode(node, _root);
 			it = iterator(node_inserted, _root, _end);
@@ -740,7 +727,6 @@ namespace ft
 
 		pointer	_minimum( pointer node ) const
 		{
-			//node->print();
 			while (node->left != _end)
 				node = node->left;
 			return node;
@@ -883,15 +869,12 @@ namespace ft
 		void	_deleteFixUp( pointer x )
 		{
 			pointer w;
-			if (x == _end)
-				return ;
+			
 			while (x != _root && x->color == BLACK_MAP)
 			{
 				if (x == x->parent->left)
 				{
 					w = x->parent->right;
-					if (w == _end)
-						return ;
 					if (w->color == RED_MAP)
 					{
 						w->color = BLACK_MAP;
@@ -912,7 +895,7 @@ namespace ft
 						w = x->parent->right;
 						w->color = x->parent->color;
 						x->parent->color = BLACK_MAP;
-						if (w->right) w->right->color = BLACK_MAP;
+						w->right->color = BLACK_MAP;
 						_left_rotate(x->parent);
 						x = _root;
 					}
@@ -928,8 +911,6 @@ namespace ft
 				else
 				{
 					w = x->parent->left;
-					if (w == _end)
-						return ;
 					if (w->color == RED_MAP)
 					{
 						w->color = BLACK_MAP;
@@ -937,7 +918,6 @@ namespace ft
 						_right_rotate(x->parent);
 						w = x->parent->left;
 					}
-					//w->print();
 					if (w->right->color == BLACK_MAP && w->left->color == BLACK_MAP)
 					{
 						w->color = RED_MAP;
@@ -951,7 +931,7 @@ namespace ft
 						w = x->parent->left;
 						w->color = x->parent->color;
 						x->parent->color = BLACK_MAP;
-						if (w->left) w->left->color = BLACK_MAP;
+						w->left->color = BLACK_MAP;
 						_right_rotate(x->parent);
 						x = _root;
 					}
@@ -989,10 +969,6 @@ namespace ft
 
 		void	_destroyNode( pointer node )
 		{
-			node->content = value_type();
-			node->left = NULL;
-			node->right = NULL;
-			node->parent = NULL;
 			_alloc.destroy(node);
 			_alloc.deallocate(node, 1);
 		}

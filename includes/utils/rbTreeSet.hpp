@@ -79,7 +79,6 @@ namespace ft
 			_root = _end;
 			_root->left = _end;
 			_root->right = _end;
-			_root->parent = _end;
 		}
 
 		/*
@@ -266,6 +265,8 @@ namespace ft
 			if (it != end())
 				return ft::make_pair(it, false);
 			pointer node = _alloc.allocate(1);
+			node->left = _end;
+			node->right = _end;
 			_alloc.construct(node, node_type(val));
 			pointer node_inserted = _insertNode(node, _root);
 			it = iterator(node_inserted, _root, _end);
@@ -846,15 +847,11 @@ namespace ft
 		{
 			pointer w;
 			
-			if (x == _end)
-				return ;
 			while (x != _root && x->color == BLACK_SET)
 			{
 				if (x == x->parent->left)
 				{
 					w = x->parent->right;
-					if (w == _end)
-						return ;
 					if (w->color == RED_SET)
 					{
 						w->color = BLACK_SET;
@@ -891,8 +888,6 @@ namespace ft
 				else
 				{
 					w = x->parent->left;
-					if (w == _end)
-						return ;
 					if (w->color == RED_SET)
 					{
 						w->color = BLACK_SET;
@@ -926,8 +921,8 @@ namespace ft
 						x = _root;
 					}
 				}
-				x->color = BLACK_SET;
 			}
+			x->color = BLACK_SET;
 		}
 
 		/*

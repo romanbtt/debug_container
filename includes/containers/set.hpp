@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwillens <iwillens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: romanbtt <marvin@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 16:45:48 by romanbtt          #+#    #+#             */
-/*   Updated: 2022/01/30 17:27:07 by iwillens         ###   ########.fr       */
+/*   Updated: 2021/10/29 00:54:30 by romanbtt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ namespace ft
 	{
 		
 	public:
-		typedef T										key_type;
+
 		typedef T										value_type;
+		typedef T										key_type;
 		typedef	Compare									key_compare;
 		typedef	Compare									value_compare;
 		typedef Alloc									allocator_type;
@@ -509,5 +510,4 @@ namespace ft
 	}
 	
 } // namespace ft
-
 #endif
