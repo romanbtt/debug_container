@@ -944,8 +944,8 @@ namespace ft
 						x = _root;
 					}
 				}
-				x->color = BLACK_MAP;
 			}
+			x->color = BLACK_MAP;
 		}
 
 		/*
