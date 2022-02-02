@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #ifndef SET_H
-#define SET_H
+# define SET_H
 
 # include "../utils/less.hpp"
 # include "../utils/pair.hpp"

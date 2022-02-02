@@ -14,6 +14,7 @@
 # define TESTS_HPP
 
 # include "Tester.hpp"
+#include <iterator>
 
 /*
 ** std:: includes

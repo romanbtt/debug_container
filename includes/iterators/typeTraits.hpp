@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #ifndef TYPETRAITS_H
-#define TYPETRAITS_H
+# define TYPETRAITS_H
 
 # include <bits/c++config.h>
 
@@ -32,6 +32,49 @@ namespace ft
 	{
 		typedef T type;
 	}; // struct enable_if
+
+	/*
+	** Remove the const of the type
+	*/
+
+	template<typename T>
+    struct remove_const
+    {
+		typedef T	type;
+	};
+
+  	template<typename T>
+    struct remove_const<T const>
+    {
+		typedef T	type;
+	};
+
+	/*
+	** Remove the volatile of the type
+	*/
+
+  	template<typename T>
+    struct remove_volatile
+    {
+		typedef T	type;
+	};
+
+  	template<typename T>
+    struct remove_volatile<T volatile>
+    {
+		typedef T	type;
+	};
+
+	/*
+	** Remove const and volatile
+	*/
+
+	template<typename T>
+    struct remove_cv
+    {
+    	typedef typename remove_const<typename remove_volatile<T>::type>::type
+			type;
+    };
 
 	/*
 	** This template is designed to provide compile-time constants as types.
@@ -102,7 +145,8 @@ namespace ft
 	*/
 
 	template<typename T>
-	struct is_integral : public is_integral_helper<T> { };
+	struct is_integral :
+		public is_integral_helper<typename remove_cv<T>::type>::type { };
 
 	template<typename, typename>
     struct is_same : public false_type { };

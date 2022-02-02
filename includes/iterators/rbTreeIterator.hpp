@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #ifndef RBTREEITERATOR_H
-#define RBTREEITERATOR_H
+# define RBTREEITERATOR_H
 
 # include "../iterators/reverseIterator.hpp"
 # include "../iterators/iteratorTraits.hpp"

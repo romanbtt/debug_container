@@ -126,14 +126,10 @@ std::string map_erase4()
 	T v;
 	std::string s("");
 
-	std::cout << "HERE1" << std::endl << std::flush;
 	for(int i = 0; i <= 10; i++)
 		v.insert(typename T::value_type(i, i));
-	std::cout << "HERE2" << std::endl << std::flush;
 	v.erase(v.begin(), v.end());
-	std::cout << "HERE3" << std::endl << std::flush;
 	s = map_attributes<T>(v);
-	std::cout << "HERE4" << std::endl << std::flush;
 	return (ft::Tester::Return(s));
 }
 

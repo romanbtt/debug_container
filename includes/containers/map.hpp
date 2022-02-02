@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #ifndef MAP_H
-#define MAP_H
+# define MAP_H
 
 # include "../utils/less.hpp"
 # include "../utils/pair.hpp"
